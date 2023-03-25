@@ -10,9 +10,7 @@ node {
  stage('run test'){
  sh "mkdir /tmp/reports"
  sh "cd /home/vbarysiu/JMETER/apache-jmeter-5.5/bin"
-      sh "jmeter -Jjmeter.save.saveservice.output_format=xml
-          -n -t Performance-Testing-CI/JMeter/shopizer-jmeter-test-script.jmx
-            -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
+      sh "jmeter -Jjmeter.save.saveservice.output_format=xml -n -t Performance-Testing-CI/JMeter/shopizer-jmeter-test-script.jmx -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
  }
 
 
