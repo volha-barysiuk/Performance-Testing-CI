@@ -1,45 +1,24 @@
 node {
-
  stage('clone git repo'){
-
- git 'https://github.com/path_to_git_repo/app.git'
-
+ git 'https://github.com/volha-barysiuk/Performance-Testing-CI.git'
  }
-
- 
 
  stage("configure") {
-
         sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
-
-    }
-
- 
+}
 
  stage('run test'){
-
  sh "mkdir /tmp/reports"
-
- sh "cd <absolute_path_to_Jmeter>/bin"
-
+ sh "cd /home/vbarysiu/JMETER/apache-jmeter-5.5/bin"
       sh "jmeter -Jjmeter.save.saveservice.output_format=xml
-
-          -n -t app/<relative_path_to_Jmeter_script>/JMeter.jmx
-
+          -n -t Performance-Testing-CI/JMeter/shopizer-jmeter-test-script.jmx
             -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
-
  }
 
- 
 
  stage('publish results'){
-
  sh "mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
-
  archiveArtifacts artifacts: '$WORKSPACE/$BUILD_NUMBER/JMeter.jtl, $WORKSPACE/$BUILD_NUMBER/HtmlReport/index.html'
-
     } 
-
   }
-
 }
