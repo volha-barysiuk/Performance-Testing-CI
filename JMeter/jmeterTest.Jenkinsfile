@@ -8,9 +8,10 @@ node {
 }
 
  stage('run test'){
- sh "mkdir /tmp/reports"
+ sh "sudo rmdir /tmp/reports"
+ sh "sudo mkdir -p /tmp/reports"
  sh "cd /home/vbarysiu/JMETER/apache-jmeter-5.5/bin"
-      sh "jmeter -Jjmeter.save.saveservice.output_format=xml -n -t Performance-Testing-CI/JMeter/shopizer-jmeter-test-script.jmx -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
+ sh "sudo ./jmeter -Jjmeter.save.saveservice.output_format=csv -n -t ci-shopizer-script.jmx -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
  }
 
 
