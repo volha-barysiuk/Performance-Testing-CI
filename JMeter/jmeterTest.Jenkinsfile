@@ -14,6 +14,6 @@ node {
 
  stage('publish results'){
  sh "sudo mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
- archiveArtifacts artifacts: '**/$BUILD_NUMBER/*.jtl', allowEmptyArchive: 'true'
+ archiveArtifacts artifacts: '${WORKSPACE}/${BUILD_NUMBER}/*.jtl', allowEmptyArchive: 'true'
     } 
   }
