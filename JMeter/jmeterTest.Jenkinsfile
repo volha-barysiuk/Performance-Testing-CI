@@ -15,6 +15,6 @@ node {
 
  stage('publish results'){
  sh "sudo mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
- archiveArtifacts artifacts: '$WORKSPACE/$BUILD_NUMBER/JMeter.jtl, $WORKSPACE/$BUILD_NUMBER/HtmlReport/index.html'
+ archiveArtifacts artifacts: '/var/lib/jenkins/workspace/JMeter_Test_Pipeline_main/32/JMeter.jtl, /var/lib/jenkins/workspace/JMeter_Test_Pipeline_main/32/HtmlReport/index.html'
     } 
   }
