@@ -7,7 +7,7 @@ parameters {
 }
 
  stage("clone project") {
-        git "https://github.com/volha-barysiuk/Performance-Testing-CI.git"
+        git 'https://github.com/volha-barysiuk/Performance-Testing-CI.git'
 }
 
  stage("configure") {
