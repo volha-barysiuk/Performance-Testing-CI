@@ -6,9 +6,12 @@ parameters {
     string(name: 'duration', defaultValue: '120', description: 'Test duration in seconds')
 }
 
+ stage("clone project") {
+        git "https://github.com/volha-barysiuk/Performance-Testing-CI.git"
+}
+
  stage("configure") {
         sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
-        echo "${env.threads}"
 }
 
  stage('run test'){
@@ -19,6 +22,6 @@ parameters {
 
  stage('publish results'){
  sh "sudo mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
- archiveArtifacts artifacts: '${env.WORKSPACE}/${env.BUILD_NUMBER}/*.jtl', allowEmptyArchive: 'true', caseSensitive: 'false'
+ archiveArtifacts artifacts: "${env.WORKSPACE}/${env.BUILD_NUMBER}/*.jtl", allowEmptyArchive: 'true', caseSensitive: 'false'
     } 
   }
