@@ -8,6 +8,7 @@ parameters {
 
  stage("configure") {
         sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
+        echo "env.threads ${threads} ${duration} env.BUILD_NUMBER ${env.BUILD_NUMBER}"
 }
 
  stage('run test'){
