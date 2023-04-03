@@ -8,7 +8,7 @@ parameters {
 
  stage("configure") {
         sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
-        echo "env.threads env.BUILD_NUMBER ${env.BUILD_NUMBER}"
+        echo "${env.threads}"
 }
 
  stage('run test'){
@@ -19,6 +19,6 @@ parameters {
 
  stage('publish results'){
  sh "sudo mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
- archiveArtifacts artifacts: '**/env.BUILD_NUMBER/*.jtl', allowEmptyArchive: 'true', caseSensitive: 'false'
+ archiveArtifacts artifacts: '${env.WORKSPACE}/${env.BUILD_NUMBER}/*.jtl', allowEmptyArchive: 'true', caseSensitive: 'false'
     } 
   }
