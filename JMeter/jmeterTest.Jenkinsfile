@@ -6,10 +6,6 @@ parameters {
     string(name: 'duration', defaultValue: '120', description: 'Test duration in seconds')
 }
 
- stage("clone project") {
-        git 'https://github.com/volha-barysiuk/Performance-Testing-CI.git'
-}
-
  stage("configure") {
         sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
 }
