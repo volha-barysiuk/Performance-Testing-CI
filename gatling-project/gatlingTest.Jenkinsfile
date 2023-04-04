@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage("Build Maven") {
             steps {
-                sh 'cd /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project'
-                sh 'mvn -f /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project/pom.xml -B clean package'
+                sh 'sudo mvn -f /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project/pom.xml -B clean package'
             }
         }
 
