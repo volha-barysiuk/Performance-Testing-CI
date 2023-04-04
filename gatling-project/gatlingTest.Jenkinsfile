@@ -8,8 +8,10 @@ pipeline {
         }
 
     stage('Pull Latest Code'){
+             steps {
                 git branch: 'main',
                 url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git'
+             }
         }
 
      stage("Run Gatling") {
