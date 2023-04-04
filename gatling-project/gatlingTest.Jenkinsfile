@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage("Build Maven") {
             steps {
+                sh 'cd /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project'
                 sh 'mvn -B clean package'
             }
         }
