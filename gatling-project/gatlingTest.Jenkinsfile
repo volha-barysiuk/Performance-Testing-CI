@@ -10,6 +10,7 @@ pipeline {
     stage('Pull Latest Code'){
              steps {
                 git branch: 'main',
+                credentialsId: '36eec0bf-90e8-447c-8dac-e1fbcbf14c35',
                 url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git'
              }
         }
