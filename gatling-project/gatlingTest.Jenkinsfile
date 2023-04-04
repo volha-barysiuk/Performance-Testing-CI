@@ -7,13 +7,12 @@ pipeline {
             }
         }
 
- stage('pullLatestCode'){
+    stage('Pull Latest Code'){
                 git branch: 'main',
-                 credentialsId: '86***e40-8583-4850-bcf5-24***b2e6b57',
-                 url: 'git@ssh.dev.azure.com:v3/AzureDevOpsOrg/Project-AzureDevOps/perf-testing'
+                url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git'
         }
 
-        stage("Run Gatling") {
+     stage("Run Gatling") {
             steps {
                 sh 'mvn gatling:test'
             }
