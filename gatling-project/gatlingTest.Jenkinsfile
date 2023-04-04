@@ -2,11 +2,12 @@ pipeline {
     agent any
     stages {
     
-    
- stage("Configure") {
-        sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
-}
-
+        stage("Configure workspace") {
+            steps {
+                sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
+            }
+        }
+        
         stage("Build Maven") {
             steps {
                 sh 'sudo mvn -f /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project/pom.xml -B clean package'
