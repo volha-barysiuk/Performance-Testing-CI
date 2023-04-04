@@ -17,7 +17,7 @@ pipeline {
 
      stage("Run Gatling") {
             steps {
-                sh 'mvn -f /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project/pom.xml gatling:test'
+                sh 'sudo mvn -f /home/vbarysiu/Repos/Performance-Testing-CI/gatling-project/pom.xml gatling:test'
             }
 
             post {
