@@ -8,8 +8,7 @@ parameters {
 
  stage("Configure") {
         sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
-        sh "sudo mkdir -p /tmp/Jenkins"
-        sh "cd /tmp/Jenkins"
+        sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
 
 }
 
@@ -26,7 +25,6 @@ parameters {
 
 
  stage('Publish results'){
- sh "sudo rm -r /tmp/jenkins/*"
  sh "sudo mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
  archiveArtifacts artifacts: "${env.BUILD_NUMBER}/JMeter.jtl, ${env.BUILD_NUMBER}/HtmlReport/**/*.*", allowEmptyArchive: 'true', caseSensitive: 'false'
     } 
