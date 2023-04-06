@@ -1,32 +1,53 @@
-node {
+pipeline {
+    agent any
 
 parameters {
     string(name: 'threads', defaultValue: '10', description: 'Number of threads')
     string(name: 'rampup', defaultValue: '5', description: 'Ramp up period in seconds')
     string(name: 'duration', defaultValue: '120', description: 'Test duration in seconds')
 }
-
-
-stage('Pull Latest Code'){
+ 
+    stage('Pull Latest Code'){
+             steps {
                 sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
                 git branch: 'main',
                 credentialsId: '36eec0bf-90e8-447c-8dac-e1fbcbf14c35',
                 url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git'
+             }
+        }
+
+
+    stages {
+        stage("Configure Workspace") {
+            steps {
+                sh "mkdir $WORKSPACE/$BUILD_NUMBER"
+            }
         }
         
- stage("Configure") {
-        sh "mkdir $WORKSPACE/$BUILD_NUMBER/"
+
+        stage("Build Maven") {
+            steps {
+                sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml -B clean package'
+            }
+        }
+
+
+
+     stage("Run Gatling") {
+            steps {
+                sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml gatling:test'
+            }
+        }
+
+
+     stage("Publish Results") {
+            steps {
+ sh "sudo mv $WORKSPACE/Gatling/target/**/*.* $WORKSPACE/$BUILD_NUMBER"
+ archiveArtifacts artifacts: "${env.BUILD_NUMBER}/gatling/**/*.*", allowEmptyArchive: 'true', caseSensitive: 'false'
+            }
+        }
+
+
+    }
 }
 
-        
- stage('Run test'){
- sh "sudo mkdir -p /tmp/reports"
- sh "sudo /home/vbarysiu/JMETER/apache-jmeter-5.5/bin/./jmeter -Jjmeter.save.saveservice.output_format=csv -Jthreads=${threads} -Jrampup=${rampup} -Jduration=${duration} -n -t $WORKSPACE/JMeter/ci-shopizer-script.jmx -l /tmp/reports/JMeter.jtl -e -o /tmp/reports/HtmlReport"
- }
-
-
- stage('Publish results'){
- sh "sudo mv /tmp/reports/* $WORKSPACE/$BUILD_NUMBER/"
- archiveArtifacts artifacts: "${env.BUILD_NUMBER}/JMeter.jtl, ${env.BUILD_NUMBER}/HtmlReport/**/*.*", allowEmptyArchive: 'true', caseSensitive: 'false'
-    } 
-  }
