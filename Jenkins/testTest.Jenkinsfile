@@ -8,6 +8,14 @@ parameters {
 }
  
     stages {
+    
+     stage("Build Maven") {
+            steps {
+                sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml -B clean package'
+            }
+        }
+    
+    
     stage('Pull Latest Code'){
              steps {
                 sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
@@ -25,12 +33,6 @@ parameters {
         }
         
 
-        stage("Build Maven") {
-            steps {
-                sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml -B clean package'
-            }
-        }
-
 
      stage("Run Gatling") {
             steps {
@@ -41,7 +43,7 @@ parameters {
 
      stage("Publish Results") {
             steps {
- sh "sudo mv $WORKSPACE/Gatling/target/**/*.* $WORKSPACE/$BUILD_NUMBER"
+ sh "sudo mv $WORKSPACE/Gatling/target/gatling/**/*.* $WORKSPACE/$BUILD_NUMBER"
  archiveArtifacts artifacts: "${env.BUILD_NUMBER}/gatling/**/*.*", allowEmptyArchive: 'true', caseSensitive: 'false'
             }
         }
