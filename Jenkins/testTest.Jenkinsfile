@@ -7,6 +7,7 @@ parameters {
     string(name: 'duration', defaultValue: '120', description: 'Test duration in seconds')
 }
  
+    stages {
     stage('Pull Latest Code'){
              steps {
                 sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
@@ -17,7 +18,6 @@ parameters {
         }
 
 
-    stages {
         stage("Configure Workspace") {
             steps {
                 sh "mkdir $WORKSPACE/$BUILD_NUMBER"
@@ -30,7 +30,6 @@ parameters {
                 sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml -B clean package'
             }
         }
-
 
 
      stage("Run Gatling") {
