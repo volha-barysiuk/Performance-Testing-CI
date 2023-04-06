@@ -38,13 +38,11 @@ parameters {
             steps {
                 sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml gatling:test'
             }
-        }
-
-
-     stage("Publish Results") {
-            steps {
- sh "sudo mv $WORKSPACE/Gatling/target/gatling/**/*.* $WORKSPACE/$BUILD_NUMBER"
- archiveArtifacts artifacts: "${env.BUILD_NUMBER}/gatling/**/*.*", allowEmptyArchive: 'true', caseSensitive: 'false'
+            
+                        post {
+                always {
+                    gatlingArchive()
+                }
             }
         }
 
