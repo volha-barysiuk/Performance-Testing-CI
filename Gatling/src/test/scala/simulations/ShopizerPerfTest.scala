@@ -12,10 +12,7 @@ class ShopizerPerfTest extends Simulation{
 
    setUp(
       scnProceedToCheckout.inject(
-        nothingFor(5),
-        rampUsers(System.getProperty("rampupUsers1", "20").toInt).during(System.getProperty("rampupDuration", "3").toInt minutes),
-        rampUsers(System.getProperty("rampupUsers2", "40").toInt).during(System.getProperty("rampupDuration", "3").toInt minutes),
-        rampUsers(System.getProperty("rampupUsers3", "50").toInt).during(System.getProperty("rampupDuration", "1").toInt minutes)
+         rampConcurrentUsers(5).to(30).during(5.minutes)
       ).protocols(httpProtocol)
    )
 
