@@ -2,9 +2,10 @@ pipeline {
     agent any
 
 parameters {
-    string(name: 'threads', defaultValue: '10', description: 'Number of threads')
-    string(name: 'rampup', defaultValue: '5', description: 'Ramp up period in seconds')
-    string(name: 'duration', defaultValue: '120', description: 'Test duration in seconds')
+    string(name: 'minUsers', defaultValue: '1', description: 'Users to ramp from')
+    string(name: 'maxUsers', defaultValue: '20', description: 'Users to ramp to')
+    string(name: 'rampTime', defaultValue: '1', description: 'Ramp duration (minutes)')
+    string(name: 'constTime', defaultValue: '1', description: 'Constant duration (minutes)')
 }
  
     stages {
@@ -21,7 +22,7 @@ parameters {
                 sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
                 git branch: 'main',
                 credentialsId: 'f2874c35-b597-428b-9c7f-d4bb9f0f15fa',
-                url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git'
+                url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git -DminUsers=${minUsers} -DmaxUsers=${maxUsers} -DrampTime=${rampTime} -DconstTime=${constTime}'
              }
         }
 
