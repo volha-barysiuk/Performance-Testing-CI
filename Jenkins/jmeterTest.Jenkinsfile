@@ -10,7 +10,7 @@ parameters {
 stage('Pull Latest Code'){
                 sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
                 git branch: 'main',
-                credentialsId: '36eec0bf-90e8-447c-8dac-e1fbcbf14c35',
+                credentialsId: 'f2874c35-b597-428b-9c7f-d4bb9f0f15fa',
                 url: 'git@github.com:volha-barysiuk/Performance-Testing-CI.git'
         }
         
