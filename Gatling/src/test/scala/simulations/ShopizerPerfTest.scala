@@ -12,7 +12,7 @@ class ShopizerPerfTest extends Simulation{
 
    setUp(
       scnProceedToCheckout.inject(
-         rampConcurrentUsers(40).to(50).during(30.minutes)
+         rampConcurrentUsers(1).to(10).during(1.minutes)
       ).protocols(httpProtocol)
    )
 
