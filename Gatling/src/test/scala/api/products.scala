@@ -11,10 +11,12 @@ object products {
     exec(
       http("Get all Products")
         .get(shopizerBaseUrl + "/api/v1/products/?&store=DEFAULT&lang=en&page=0&count=15&category=50")
+        .check(status.is(200))
+        .check(jsonPath("$..products").find)
     )
       .exec(
         http("Options: Get all Products")
-          .options(shopizerBaseUrl + "/api/v1/products/?&store=DEFAULT&lang=en&page=0&count=15&category=50")
+        .options(shopizerBaseUrl + "/api/v1/products/?&store=DEFAULT&lang=en&page=0&count=15&category=50")
       )
   }
 
@@ -59,12 +61,11 @@ object products {
     exec(
       http("Get Product Reviews")
         .get(shopizerBaseUrl + s"/api/v1/products/$prodId/reviews?store=DEFAULT")
+        .check(status.is(200))
     )
       .exec(
         http("Options: Get Product Reviews")
           .options(shopizerBaseUrl + s"/api/v1/products/$prodId/reviews?store=DEFAULT")
       )
   }
-
-
 }
