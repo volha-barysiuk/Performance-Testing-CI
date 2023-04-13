@@ -27,14 +27,6 @@ parameters {
         }
 
 
-        stage("Configure Workspace") {
-            steps {
-                sh "mkdir $WORKSPACE/$BUILD_NUMBER"
-            }
-        }
-        
-
-
      stage("Run Gatling") {
             steps {
                 sh 'sudo mvn -f $WORKSPACE/Gatling/pom.xml gatling:test -DminUsers=${minUsers} -DmaxUsers=${maxUsers} -DrampTime=${rampTime} -DconstTime=${constTime}'
