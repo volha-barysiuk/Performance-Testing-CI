@@ -11,6 +11,8 @@ object generic {
     exec(
       http("Health Check")
         .get(shopizerBaseUrl + "/actuator/health/ping")
+        .check(status.is(200))
+        .check(jsonPath("$.status").is("UP"))
     )
       .exec(
         http("Options: Health Check")
@@ -22,6 +24,8 @@ object generic {
     exec(
       http("Get Category Details")
         .get(shopizerBaseUrl + s"/api/v1/category/$cat?count=20&page=0&store=DEFAULT&lang=en")
+        .check(status.is(200))
+        .check(jsonPath("$..code").find)
     )
       .exec(
         http("Options: Category Details")
@@ -33,6 +37,8 @@ object generic {
     exec(
       http("Get Page Content")
         .get(shopizerBaseUrl + "/api/v1/content/pages/?page=0&count=20&store=DEFAULT&lang=en")
+        .check(status.is(200))
+        .check(jsonPath("$.totalPages").is("0"))
     )
       .exec(
         http("Options: Page Content")
@@ -69,6 +75,8 @@ object generic {
     exec(
       http("Get Category Manufacturers")
         .get(shopizerBaseUrl + s"/api/v1/category/$cat/manufacturers/?store=DEFAULT&lang=en")
+        .check(status.is(200))
+        .check(jsonPath("$..code").is("DEFAULT"))
     )
       .exec(
         http("Options: Category Manufacturers")
