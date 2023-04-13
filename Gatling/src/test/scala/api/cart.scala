@@ -57,6 +57,7 @@ object cart {
     exec(
       http("View Cart Total Price")
         .get(shopizerBaseUrl + s"/api/v1/cart/$code/total/")
+        .check(status.is(200))
         .check(jsonPath("$.total").exists)
     )
       .exec(
@@ -69,6 +70,7 @@ object cart {
     exec(
       http("View Shipping Details")
         .get(shopizerBaseUrl + "/api/v1/shipping/country?store=DEFAULT&lang=en")
+        .check(status.is(200))
         .check(jsonPath("$..zones").exists)
     )
       .exec(
@@ -93,6 +95,7 @@ object cart {
     exec(
       http("Get Zones")
         .get(shopizerBaseUrl + "/api/v1/zones/?code=")
+        .check(status.is(200))
         .check(bodyString.is("[]"))
     )
       .exec(
@@ -105,6 +108,7 @@ object cart {
     exec(
       http("Get Config")
         .get(shopizerBaseUrl + "/api/v1/config/")
+        .check(status.is(200))
         .check(jsonPath("$.displayShipping").is("true"))
     )
       .exec(
